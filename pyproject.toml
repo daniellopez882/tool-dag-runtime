@@ -1,0 +1,65 @@
+[project]
+name = "tool-dag-runtime"
+version = "0.1.0"
+description = "Streaming tool-DAG runtime in the LLMCompiler style: an incremental plan parser, a task fetching unit that dispatches while the plan is still arriving, and a joiner/replan loop, applied to movie-recommendation reasoning."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Daniel Lopez" }]
+requires-python = ">=3.12,<3.13"
+keywords = ["asyncio", "dag", "scheduler", "llmcompiler", "sse", "aiohttp", "onnx", "agents"]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Framework :: AsyncIO",
+    "Framework :: aiohttp",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
+dependencies = [
+    "aiohttp>=3.10",
+    "numpy>=2.0",
+    "onnxruntime>=1.19",
+    "pydantic>=2.8",
+    "typer>=0.12",
+]
+
+[project.scripts]
+tooldag = "tooldag.cli:main"
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.112",
+    "pytest>=8.3",
+    "ruff>=0.7",
+    # Parity reference for the from-scratch WordPiece tokenizer; never imported by src/.
+    "tokenizers>=0.20",
+]
+
+[build-system]
+requires = ["uv_build>=0.8,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "tooldag"
+
+[tool.ruff]
+line-length = 99
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "N", "PT", "ASYNC", "PERF", "C4", "RET"]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["PT018"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["tooldag"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -m 'not integration'"
+markers = [
+    "integration: needs the fetched datasets or the MiniLM model; run with -m integration",
+]
+filterwarnings = ["error::RuntimeWarning"]

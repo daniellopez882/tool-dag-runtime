@@ -1,0 +1,26 @@
+# environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+.mypy_cache/
+build/
+dist/
+*.egg-info/
+
+# fetched data, derived indexes and model weights never live in the repo
+data/
+*.onnx
+*.tar.gz
+*.zip
+*.npz
+
+# benchmark scratch output; headline results in bench/results/*.json are committed
+bench/results/smoke-*.json
+bench/scratch/
+
+.env
+.idea/
+.vscode/
