@@ -10,6 +10,7 @@ them waits on another member, so rejecting them on arrival loses nothing.
 from __future__ import annotations
 
 import hashlib
+import heapq
 import json
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
@@ -78,20 +79,30 @@ class PlanGraph:
             self.dependents.setdefault(dep, set()).add(call.idx)
 
     def _cycle_through(self, start: int) -> tuple[int, ...] | None:
-        """Depth-first search along dependency edges for a path back to ``start``."""
-        stack: list[tuple[int, list[int]]] = [
-            (dep, [start]) for dep in sorted(self.calls[start].deps)
-        ]
-        seen: set[int] = set()
+        """Search from ``start`` along "is needed by" edges for a way back to ``start``.
+
+        Only tasks that referenced ``start`` before it arrived can close a cycle, so with
+        no forward references this returns at once instead of walking every upstream
+        task (which made long chains quadratic to submit).
+        """
+        parent: dict[int, int] = {}
+        stack = [start]
         while stack:
-            node, path = stack.pop()
-            if node == start:
-                return tuple(path)
-            # Rejected nodes are already dead; anything that reaches them is cancelled anyway.
-            if node in seen or node not in self.calls or node in self.rejected:
-                continue
-            seen.add(node)
-            stack.extend((dep, [*path, node]) for dep in sorted(self.calls[node].deps))
+            node = stack.pop()
+            for child in sorted(self.dependents.get(node, ())):
+                if child == start:
+                    # start depends on node, node on parent[node], ... back to start.
+                    members = [start]
+                    cur = node
+                    while cur != start:
+                        members.append(cur)
+                        cur = parent[cur]
+                    return tuple(members)
+                # Rejected tasks are already dead; anything that reaches them is cancelled.
+                if child in parent or child in self.rejected:
+                    continue
+                parent[child] = node
+                stack.append(child)
         return None
 
     def missing_refs(self) -> dict[int, set[int]]:
@@ -122,17 +133,17 @@ class PlanGraph:
         """Accepted tasks in dependency order, lowest task number first among peers."""
         accepted = {i for i in self.calls if i not in self.rejected}
         indegree = {i: sum(1 for d in self.calls[i].deps if d in accepted) for i in accepted}
-        ready = sorted(i for i, n in indegree.items() if n == 0)
+        ready = [i for i, n in indegree.items() if n == 0]
+        heapq.heapify(ready)
         order: list[int] = []
         while ready:
-            node = ready.pop(0)
+            node = heapq.heappop(ready)
             order.append(node)
-            for child in sorted(self.dependents.get(node, ())):
+            for child in self.dependents.get(node, ()):
                 if child in indegree:
                     indegree[child] -= 1
                     if indegree[child] == 0:
-                        ready.append(child)
-            ready.sort()
+                        heapq.heappush(ready, child)
         return order
 
     def depth(self) -> int:
