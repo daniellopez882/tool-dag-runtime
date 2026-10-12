@@ -166,3 +166,11 @@ def test_cli_bench_refuses_without_data(monkeypatch: pytest.MonkeyPatch, tmp_pat
     result = CliRunner().invoke(app, ["bench", "--only", "accuracy", "--out-dir", str(tmp_path)])
     assert result.exit_code != 0
     assert "tooldag fetch" in str(result.output) + str(result.exception)
+
+
+def test_tool_pool_starts_every_worker_up_front() -> None:
+    from tooldag.tools.base import tool_pool
+
+    with tool_pool(3) as pool:
+        assert len(pool._threads) == 3
+        assert pool.submit(lambda: 7).result() == 7

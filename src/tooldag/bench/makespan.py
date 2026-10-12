@@ -25,6 +25,7 @@ from tooldag.joiner import RuleJoiner
 from tooldag.planners import TemplatePlanner
 from tooldag.runtime import Runtime, RuntimeConfig
 from tooldag.scheduler import Limits
+from tooldag.tools.base import tool_pool
 from tooldag.tools.embed import MiniLMEmbedder
 from tooldag.tools.movies import MovieTools
 
@@ -121,7 +122,7 @@ def _measure(
     warmup: int = 2,
 ) -> dict[str, list[RunResult]]:
     results: dict[str, list[RunResult]] = {c.name: [] for c in configs}
-    pools = {c.name: ThreadPoolExecutor(max_workers=c.concurrency) for c in configs}
+    pools = {c.name: tool_pool(c.concurrency) for c in configs}
 
     async def go() -> None:
         for i, q in enumerate([*questions[:warmup], *questions]):

@@ -31,6 +31,7 @@ from tooldag.joiner import RuleJoiner
 from tooldag.planners import TemplatePlanner
 from tooldag.runtime import Runtime, RuntimeConfig
 from tooldag.scheduler import Limits
+from tooldag.tools.base import tool_pool
 from tooldag.tools.embed import CachingEmbedder, MiniLMEmbedder
 from tooldag.tools.movies import MATCH_THRESHOLD, MovieTools
 from tooldag.tools.scorer import SIGNALS, LinearScorer, features_matrix, fit_conditional_logit
@@ -295,7 +296,7 @@ def bench_accuracy(
     embedder = CachingEmbedder(minilm)
 
     async def go() -> tuple[list[dict[str, Any]], LinearScorer]:
-        with ThreadPoolExecutor(max_workers=6, thread_name_prefix="tool") as pool:
+        with tool_pool(6) as pool:
             original, fitted = await _dataset(
                 "BIG-bench movie_recommendation", fit_q, held_q, catalog, embedder, segment, pool
             )

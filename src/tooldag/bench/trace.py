@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-from concurrent.futures import ThreadPoolExecutor
 from typing import TYPE_CHECKING, Any
 
 import aiohttp
@@ -20,6 +19,7 @@ from tooldag.bigbench import load_questions, split_fit_eval
 from tooldag.fetch import asset_path
 from tooldag.server import ServiceState, create_app
 from tooldag.service import make_joiner, make_planner
+from tooldag.tools.base import tool_pool
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -57,7 +57,7 @@ def task_table(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 async def _capture(domain: Domain, question: str, options: list[str]) -> str:
-    with ThreadPoolExecutor(max_workers=6, thread_name_prefix="tool") as pool:
+    with tool_pool(6) as pool:
         state = ServiceState(
             tools=domain.tools,
             planner_factory=lambda kind: make_planner(kind, domain),

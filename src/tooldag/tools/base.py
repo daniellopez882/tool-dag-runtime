@@ -5,13 +5,36 @@ from __future__ import annotations
 import asyncio
 import functools
 import inspect
+import threading
 import types
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Union, get_args, get_origin
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterator, Mapping, Sequence
     from concurrent.futures import Executor
+
+POOL_START_TIMEOUT_S = 30.0
+
+
+def tool_pool(workers: int) -> ThreadPoolExecutor:
+    """Thread pool for blocking tools, with every worker thread already running.
+
+    ``ThreadPoolExecutor`` starts threads lazily inside ``submit()``, and
+    ``Thread.start()`` waits until the OS has scheduled the new thread. Called from a
+    tool dispatch, that wait happens on the event loop and stalls plan parsing and
+    every other task; on a busy machine it was measured in tens of milliseconds.
+    """
+    pool = ThreadPoolExecutor(max_workers=workers, thread_name_prefix="tool")
+    barrier = threading.Barrier(workers + 1, timeout=POOL_START_TIMEOUT_S)
+    # Each submit finds no idle thread (the earlier ones block on the barrier), so the
+    # pool has to create all ``workers`` threads before the barrier opens.
+    futures = [pool.submit(barrier.wait) for _ in range(workers)]
+    barrier.wait()
+    for future in futures:
+        future.result()
+    return pool
 
 
 class ToolError(Exception):

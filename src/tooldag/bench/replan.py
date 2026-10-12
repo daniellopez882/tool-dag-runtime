@@ -23,7 +23,7 @@ from tooldag.planners import ScriptedPlanner, TemplatePlanner
 from tooldag.rounds import PlanContext
 from tooldag.runtime import Runtime, RuntimeConfig
 from tooldag.scheduler import Limits, RetryPolicy
-from tooldag.tools.base import ToolRegistry, TransientToolError
+from tooldag.tools.base import ToolRegistry, TransientToolError, tool_pool
 from tooldag.tools.catalog import Catalog
 from tooldag.tools.embed import HashingEmbedder
 from tooldag.tools.movies import MovieTools
@@ -150,7 +150,7 @@ async def _scenarios() -> list[dict[str, Any]]:
     clean = _clean_items(tools, question, options)
     clean_text = render_plan(clean)
     rows: list[dict[str, Any]] = []
-    with ThreadPoolExecutor(max_workers=4) as pool:
+    with tool_pool(4) as pool:
         cases: list[tuple[str, str, ToolRegistry, Planner, str, int, str | None]] = [
             ("clean template plan", "-", tools, TemplatePlanner(), question, 3, expected),
             (

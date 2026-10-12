@@ -5,7 +5,6 @@ from __future__ import annotations
 import asyncio
 import json
 import sys
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import TYPE_CHECKING, Annotated
 
@@ -71,10 +70,11 @@ async def _ask(
     from tooldag.runtime import Runtime, RuntimeConfig
     from tooldag.scheduler import Limits
     from tooldag.service import load_domain, make_joiner, make_planner
+    from tooldag.tools.base import tool_pool
 
     domain = load_domain(catalog)  # type: ignore[arg-type]
     log = EventLog("cli")
-    with ThreadPoolExecutor(max_workers=concurrency) as pool:
+    with tool_pool(concurrency) as pool:
         runtime = Runtime(
             domain.tools,
             make_planner(planner, domain),
@@ -156,9 +156,10 @@ def serve(
 
     from tooldag.server import ServiceState, create_app
     from tooldag.service import load_domain, make_joiner, make_planner
+    from tooldag.tools.base import tool_pool
 
     domain = load_domain(catalog)  # type: ignore[arg-type]
-    pool = ThreadPoolExecutor(max_workers=workers, thread_name_prefix="tool")
+    pool = tool_pool(workers)
     state = ServiceState(
         tools=domain.tools,
         planner_factory=lambda kind: make_planner(kind, domain),

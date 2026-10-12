@@ -56,6 +56,104 @@ def trace_table(result: dict[str, Any]) -> str:
     )
 
 
+def trace_tool_table(result: dict[str, Any]) -> str:
+    """Per tool: how many tasks, when the first started and the last finished."""
+    by_tool: dict[str, list[dict[str, Any]]] = {}
+    for row in result["tasks"]:
+        by_tool.setdefault(row["tool"], []).append(row)
+    rows = []
+    for tool, tasks in by_tool.items():
+        starts = [t["started_ms"] for t in tasks if "started_ms" in t]
+        ends = [t["finished_ms"] for t in tasks if "finished_ms" in t]
+        rows.append(
+            [
+                tool,
+                len(tasks),
+                min(t["received_ms"] for t in tasks),
+                min(starts, default=""),
+                max(ends, default=""),
+            ]
+        )
+    return _md(
+        ["tool", "tasks", "first line parsed (ms)", "first started (ms)", "last finished (ms)"],
+        "lrrrr",
+        rows,
+    )
+
+
+def _sse_blocks(body: str) -> list[tuple[str, dict[str, Any]]]:
+    out = []
+    for block in body.split("\n\n"):
+        data = next((ln[5:].strip() for ln in block.splitlines() if ln.startswith("data:")), None)
+        if data is not None:
+            out.append((block, json.loads(data)))
+    return out
+
+
+def _clip(block: str, width: int = 160) -> str:
+    return "\n".join(
+        ln if len(ln) <= width else ln[: width - 3] + "..." for ln in block.split("\n")
+    )
+
+
+def trace_excerpt(result: dict[str, Any]) -> str:
+    """Selected raw SSE blocks of the captured run, annotated with SSE comment lines.
+
+    Annotations are computed from the same events, so every number in them is measured.
+    """
+    blocks = _sse_blocks(result["sse"])
+    events = [e for _, e in blocks]
+    plan_done = next(i for i, e in enumerate(events) if e["type"] == "plan_complete")
+    received_total = sum(1 for e in events if e["type"] == "task_received")
+
+    def first(pred: Any) -> int | None:
+        return next((i for i, e in enumerate(events) if pred(e)), None)
+
+    def lines_after(i: int) -> int:
+        return sum(1 for e in events[i + 1 : plan_done] if e["type"] == "task_received")
+
+    picks: list[tuple[int, str]] = []
+    if (i := first(lambda e: e["type"] == "run_started")) is not None:
+        picks.append((i, "the question and its four options arrive"))
+    if (i := first(lambda e: e["type"] == "task_received")) is not None:
+        picks.append((i, f"the planner has written line 1 of {received_total}"))
+    if (i := first(lambda e: e["type"] == "task_started")) is not None:
+        picks.append((i, f"dispatched at once; {lines_after(i)} plan lines are still to come"))
+    embed = first(lambda e: e["type"] == "task_started" and e["data"].get("tool") == "embed")
+    if embed is not None:
+        picks.append((embed, f"first ONNX call starts with {lines_after(embed)} lines unwritten"))
+    plan_t = events[plan_done]["t_ms"]
+    done_before = sum(
+        1 for e in events[:plan_done] if e["type"] in ("task_succeeded", "task_reused")
+    )
+    picks.append(
+        (plan_done, f"plan finished at {plan_t} ms; {done_before} tasks had already succeeded")
+    )
+    if (
+        i := first(lambda e: e["type"] == "task_succeeded" and e["data"].get("tool") == "rank")
+    ) is not None:
+        picks.append((i, "the weighted scorer's ranking of the options"))
+    if (i := first(lambda e: e["type"] == "join_decision")) is not None:
+        picks.append((i, "the joiner accepts the ranking instead of replanning"))
+    if (i := first(lambda e: e["type"] == "run_finished")) is not None:
+        calls = events[i]["data"]["model_calls"]
+        picks.append(
+            (
+                i,
+                f"structural count: {calls['llmcompiler']} model calls as LLMCompiler, "
+                f"{calls['react_equivalent']} as ReAct (no model was run)",
+            )
+        )
+    out: list[str] = []
+    last = -1
+    for i, note in sorted(picks):
+        if last >= 0 and i > last + 1:
+            out.append(f": ... {i - last - 1} more events ...\n")
+        out.append(f": {note}\n{_clip(blocks[i][0])}\n")
+        last = i
+    return "```text\n" + "\n".join(out) + "```"
+
+
 def makespan_table(result: dict[str, Any]) -> str:
     return _md(
         [
@@ -188,6 +286,8 @@ def replan_table(result: dict[str, Any]) -> str:
 
 def render(results_dir: Path) -> str:
     sections: list[tuple[str, str, Any]] = [
+        ("trace", "Annotated SSE excerpt", trace_excerpt),
+        ("trace", "Timing by tool", trace_tool_table),
         ("trace", "Per-task timing of the captured run", trace_table),
         ("makespan", "Makespan", makespan_table),
         ("streaming", "Streaming dispatch", streaming_table),
