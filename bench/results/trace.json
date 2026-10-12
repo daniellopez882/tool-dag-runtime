@@ -1,0 +1,338 @@
+{
+  "machine": {
+    "cpu": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+    "logical_cores": 6,
+    "ram_gb": 11.9,
+    "os": "Windows 10 (10.0.19045)",
+    "python": "3.12.14",
+    "packages": {
+      "tool-dag-runtime": "0.1.0",
+      "aiohttp": "3.14.4",
+      "numpy": "2.5.4",
+      "onnxruntime": "1.31.0",
+      "pydantic": "2.14.0",
+      "typer": "0.27.3"
+    },
+    "accelerator": "none (CPU only)"
+  },
+  "date": "2026-10-13",
+  "timestamp": "2026-10-13T03:43:53+05:00",
+  "git_sha": "b00410c8e1874f44d2c685225716f83113e7fb7b",
+  "command": "tooldag bench",
+  "benchmark": "trace",
+  "endpoint": "POST /v1/ask (SSE)",
+  "catalog": "movielens-latest-small+cmu-movie-summaries",
+  "embedder": "all-MiniLM-L6-v2 int8 ONNX (intra-op threads=1)",
+  "scorer": "conditional logit, 100 questions, l2=1.0",
+  "question": "Find a movie similar to Mission Impossible, The Silence of the Lambs, American Beauty, Star Wars Episode IV - A New Hope",
+  "options": [
+    "Austin Powers International Man of Mystery",
+    "Alesha Popovich and Tugarin the Dragon",
+    "In Cold Blood",
+    "Rosetta"
+  ],
+  "answer": "Austin Powers: International Man of Mystery",
+  "makespan_ms": 166.264,
+  "event_count": 118,
+  "tasks": [
+    {
+      "idx": 1,
+      "tool": "resolve_title",
+      "received_ms": 8.842,
+      "started_ms": 8.898,
+      "finished_ms": 9.055,
+      "state": "succeeded"
+    },
+    {
+      "idx": 2,
+      "tool": "plot",
+      "received_ms": 9.11,
+      "started_ms": 9.149,
+      "finished_ms": 10.061,
+      "state": "succeeded"
+    },
+    {
+      "idx": 3,
+      "tool": "embed",
+      "received_ms": 10.12,
+      "started_ms": 10.157,
+      "finished_ms": 129.78,
+      "state": "succeeded"
+    },
+    {
+      "idx": 4,
+      "tool": "resolve_title",
+      "received_ms": 10.38,
+      "started_ms": 10.43,
+      "finished_ms": 12.781,
+      "state": "succeeded"
+    },
+    {
+      "idx": 5,
+      "tool": "plot",
+      "received_ms": 12.849,
+      "started_ms": 12.889,
+      "finished_ms": 13.073,
+      "state": "succeeded"
+    },
+    {
+      "idx": 6,
+      "tool": "embed",
+      "received_ms": 13.132,
+      "started_ms": 13.17,
+      "finished_ms": 154.466,
+      "state": "succeeded"
+    },
+    {
+      "idx": 7,
+      "tool": "resolve_title",
+      "received_ms": 13.515,
+      "started_ms": 13.557,
+      "finished_ms": 13.732,
+      "state": "succeeded"
+    },
+    {
+      "idx": 8,
+      "tool": "plot",
+      "received_ms": 13.785,
+      "started_ms": 13.823,
+      "finished_ms": 17.229,
+      "state": "succeeded"
+    },
+    {
+      "idx": 9,
+      "tool": "embed",
+      "received_ms": 17.338,
+      "started_ms": 17.394,
+      "finished_ms": 142.454,
+      "state": "succeeded"
+    },
+    {
+      "idx": 10,
+      "tool": "resolve_title",
+      "received_ms": 17.85,
+      "started_ms": 18.045,
+      "finished_ms": 20.365,
+      "state": "succeeded"
+    },
+    {
+      "idx": 11,
+      "tool": "plot",
+      "received_ms": 20.498,
+      "started_ms": 20.566,
+      "finished_ms": 20.83,
+      "state": "succeeded"
+    },
+    {
+      "idx": 12,
+      "tool": "embed",
+      "received_ms": 20.913,
+      "started_ms": 20.961,
+      "finished_ms": 163.451,
+      "state": "succeeded"
+    },
+    {
+      "idx": 13,
+      "tool": "resolve_title",
+      "received_ms": 21.38,
+      "started_ms": 21.43,
+      "finished_ms": 24.431,
+      "state": "succeeded"
+    },
+    {
+      "idx": 14,
+      "tool": "plot",
+      "received_ms": 24.611,
+      "started_ms": 24.691,
+      "finished_ms": 25.108,
+      "state": "succeeded"
+    },
+    {
+      "idx": 15,
+      "tool": "embed",
+      "received_ms": 25.231,
+      "started_ms": 25.276,
+      "finished_ms": 149.516,
+      "state": "succeeded"
+    },
+    {
+      "idx": 16,
+      "tool": "cooccurrence",
+      "received_ms": 25.627,
+      "started_ms": 25.686,
+      "finished_ms": 26.014,
+      "state": "succeeded"
+    },
+    {
+      "idx": 17,
+      "tool": "genre_jaccard",
+      "received_ms": 26.101,
+      "started_ms": 26.149,
+      "finished_ms": 26.356,
+      "state": "succeeded"
+    },
+    {
+      "idx": 18,
+      "tool": "plot_similarity",
+      "received_ms": 26.479,
+      "started_ms": 163.689,
+      "finished_ms": 164.056,
+      "state": "succeeded"
+    },
+    {
+      "idx": 19,
+      "tool": "resolve_title",
+      "received_ms": 26.807,
+      "started_ms": 26.852,
+      "finished_ms": 27.159,
+      "state": "succeeded"
+    },
+    {
+      "idx": 20,
+      "tool": "plot",
+      "received_ms": 27.284,
+      "started_ms": 27.344,
+      "finished_ms": 35.047,
+      "state": "succeeded"
+    },
+    {
+      "idx": 21,
+      "tool": "embed",
+      "received_ms": 35.315,
+      "started_ms": 35.393,
+      "finished_ms": 48.769,
+      "state": "succeeded"
+    },
+    {
+      "idx": 22,
+      "tool": "cooccurrence",
+      "received_ms": 35.955,
+      "started_ms": 48.884,
+      "finished_ms": 49.147,
+      "state": "succeeded"
+    },
+    {
+      "idx": 23,
+      "tool": "genre_jaccard",
+      "received_ms": 36.345,
+      "started_ms": 49.262,
+      "finished_ms": 49.962,
+      "state": "succeeded"
+    },
+    {
+      "idx": 24,
+      "tool": "plot_similarity",
+      "received_ms": 37.006,
+      "started_ms": 163.741,
+      "finished_ms": 164.166,
+      "state": "succeeded"
+    },
+    {
+      "idx": 25,
+      "tool": "resolve_title",
+      "received_ms": 37.398,
+      "started_ms": 50.027,
+      "finished_ms": 50.223,
+      "state": "succeeded"
+    },
+    {
+      "idx": 26,
+      "tool": "plot",
+      "received_ms": 37.949,
+      "started_ms": 51.121,
+      "finished_ms": 51.34,
+      "state": "succeeded"
+    },
+    {
+      "idx": 27,
+      "tool": "embed",
+      "received_ms": 38.424,
+      "started_ms": 52.651,
+      "finished_ms": 164.998,
+      "state": "succeeded"
+    },
+    {
+      "idx": 28,
+      "tool": "cooccurrence",
+      "received_ms": 38.998,
+      "started_ms": 51.387,
+      "finished_ms": 51.67,
+      "state": "succeeded"
+    },
+    {
+      "idx": 29,
+      "tool": "genre_jaccard",
+      "received_ms": 39.279,
+      "started_ms": 51.711,
+      "finished_ms": 51.875,
+      "state": "succeeded"
+    },
+    {
+      "idx": 30,
+      "tool": "plot_similarity",
+      "received_ms": 39.456,
+      "started_ms": 165.09,
+      "finished_ms": 165.271,
+      "state": "succeeded"
+    },
+    {
+      "idx": 31,
+      "tool": "resolve_title",
+      "received_ms": 39.827,
+      "started_ms": 50.423,
+      "finished_ms": 50.996,
+      "state": "succeeded"
+    },
+    {
+      "idx": 32,
+      "tool": "plot",
+      "received_ms": 40.023,
+      "started_ms": 51.91,
+      "finished_ms": 52.135,
+      "state": "succeeded"
+    },
+    {
+      "idx": 33,
+      "tool": "embed",
+      "received_ms": 40.231,
+      "started_ms": 129.939,
+      "finished_ms": 130.737,
+      "state": "succeeded"
+    },
+    {
+      "idx": 34,
+      "tool": "cooccurrence",
+      "received_ms": 40.401,
+      "started_ms": 52.185,
+      "finished_ms": 52.341,
+      "state": "succeeded"
+    },
+    {
+      "idx": 35,
+      "tool": "genre_jaccard",
+      "received_ms": 40.632,
+      "started_ms": 52.375,
+      "finished_ms": 52.612,
+      "state": "succeeded"
+    },
+    {
+      "idx": 36,
+      "tool": "plot_similarity",
+      "received_ms": 40.866,
+      "started_ms": 163.788,
+      "finished_ms": 164.235,
+      "state": "succeeded"
+    },
+    {
+      "idx": 37,
+      "tool": "rank",
+      "received_ms": 41.177,
+      "started_ms": 165.495,
+      "finished_ms": 166.083,
+      "state": "succeeded"
+    }
+  ],
+  "sse": "id: 1\nevent: run_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":1,\"t_ms\":0.412,\"type\":\"run_started\",\"round\":null,\"data\":{\"question\":\"Find a movie similar to Mission Impossible, The Silence of the Lambs, American Beauty, Star Wars Episode IV - A New Hope\",\"options\":[\"Austin Powers International Man of Mystery\",\"Alesha Popovich and Tugarin the Dragon\",\"In Cold Blood\",\"Rosetta\"],\"planner\":\"template\",\"joiner\":\"rule\",\"mode\":\"dag\",\"stream_dispatch\":true,\"max_concurrency\":6,\"max_rounds\":3}}\n\nid: 2\nevent: plan_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":2,\"t_ms\":0.485,\"type\":\"plan_started\",\"round\":1,\"data\":{}}\n\nid: 3\nevent: thought\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":3,\"t_ms\":5.126,\"type\":\"thought\",\"round\":1,\"data\":{\"text\":\"Resolve 4 liked titles and 4 options, embed plots, score each option on cooccurrence, plot_similarity, genre_jaccard, then rank.\"}}\n\nid: 4\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":4,\"t_ms\":8.842,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":1,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"1. resolve_title(\\\"Mission Impossible\\\")\"}}\n\nid: 5\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":5,\"t_ms\":8.898,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":1,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":0.01}}\n\nid: 6\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":6,\"t_ms\":9.055,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":1,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.064,\"result\":{\"id\":648,\"title\":\"Mission: Impossible\",\"year\":1996,\"match\":1.0}}}\n\nid: 7\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":7,\"t_ms\":9.11,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":2,\"tool\":\"plot\",\"deps\":[1],\"call\":\"2. plot($1)\"}}\n\nid: 8\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":8,\"t_ms\":9.149,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":2,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.006}}\n\nid: 9\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":9,\"t_ms\":10.061,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":2,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.027,\"result\":\"Ethan Hunt  is part of a small team of the Impossible Missions Force , an unoffi... (5114 chars)\"}}\n\nid: 10\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":10,\"t_ms\":10.12,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":3,\"tool\":\"embed\",\"deps\":[2],\"call\":\"3. embed($2)\"}}\n\nid: 11\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":11,\"t_ms\":10.157,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":3,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":0.006}}\n\nid: 12\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":12,\"t_ms\":10.38,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":4,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"4. resolve_title(\\\"The Silence of the Lambs\\\")\"}}\n\nid: 13\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":13,\"t_ms\":10.43,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":4,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":0.006}}\n\nid: 14\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":14,\"t_ms\":12.781,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":4,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.059,\"result\":{\"id\":593,\"title\":\"The Silence of the Lambs\",\"year\":1991,\"match\":1.0}}}\n\nid: 15\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":15,\"t_ms\":12.849,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":5,\"tool\":\"plot\",\"deps\":[4],\"call\":\"5. plot($4)\"}}\n\nid: 16\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":16,\"t_ms\":12.889,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":5,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.006}}\n\nid: 17\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":17,\"t_ms\":13.073,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":5,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.029,\"result\":\"Clarice Starling  is pulled from her training at the FBI Academy at Quantico, Vi... (4165 chars)\"}}\n\nid: 18\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":18,\"t_ms\":13.132,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":6,\"tool\":\"embed\",\"deps\":[5],\"call\":\"6. embed($5)\"}}\n\nid: 19\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":19,\"t_ms\":13.17,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":6,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":0.006}}\n\nid: 20\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":20,\"t_ms\":13.515,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":7,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"7. resolve_title(\\\"American Beauty\\\")\"}}\n\nid: 21\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":21,\"t_ms\":13.557,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":7,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":0.006}}\n\nid: 22\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":22,\"t_ms\":13.732,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":7,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.05,\"result\":{\"id\":2858,\"title\":\"American Beauty\",\"year\":1999,\"match\":1.0}}}\n\nid: 23\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":23,\"t_ms\":13.785,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":8,\"tool\":\"plot\",\"deps\":[7],\"call\":\"8. plot($7)\"}}\n\nid: 24\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":24,\"t_ms\":13.823,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":8,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.005}}\n\nid: 25\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":25,\"t_ms\":17.229,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":8,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.062,\"result\":\"Lester Burnham  is a middle-aged magazine writer who despises his job. His wife,... (1511 chars)\"}}\n\nid: 26\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":26,\"t_ms\":17.338,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":9,\"tool\":\"embed\",\"deps\":[8],\"call\":\"9. embed($8)\"}}\n\nid: 27\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":27,\"t_ms\":17.394,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":9,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":0.009}}\n\nid: 28\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":28,\"t_ms\":17.85,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":10,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"10. resolve_title(\\\"Star Wars Episode IV - A New Hope\\\")\"}}\n\nid: 29\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":29,\"t_ms\":18.045,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":10,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":0.008}}\n\nid: 30\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":30,\"t_ms\":20.365,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":10,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.113,\"result\":{\"id\":260,\"title\":\"Star Wars: Episode IV - A New Hope\",\"year\":1977,\"match\":1.0}}}\n\nid: 31\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":31,\"t_ms\":20.498,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":11,\"tool\":\"plot\",\"deps\":[10],\"call\":\"11. plot($10)\"}}\n\nid: 32\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":32,\"t_ms\":20.566,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":11,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.012}}\n\nid: 33\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":33,\"t_ms\":20.83,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":11,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.044,\"result\":\"The film begins with an opening crawl explaining that the galaxy is in a state o... (3555 chars)\"}}\n\nid: 34\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":34,\"t_ms\":20.913,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":12,\"tool\":\"embed\",\"deps\":[11],\"call\":\"12. embed($11)\"}}\n\nid: 35\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":35,\"t_ms\":20.961,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":12,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":0.007}}\n\nid: 36\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":36,\"t_ms\":21.38,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":13,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"13. resolve_title(\\\"Austin Powers International Man of Mystery\\\")\"}}\n\nid: 37\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":37,\"t_ms\":21.43,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":13,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":0.007}}\n\nid: 38\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":38,\"t_ms\":24.431,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":13,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.403,\"result\":{\"id\":1517,\"title\":\"Austin Powers: International Man of Mystery\",\"year\":1997,\"match\":1.0}}}\n\nid: 39\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":39,\"t_ms\":24.611,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":14,\"tool\":\"plot\",\"deps\":[13],\"call\":\"14. plot($13)\"}}\n\nid: 40\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":40,\"t_ms\":24.691,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":14,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.012}}\n\nid: 41\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":41,\"t_ms\":25.108,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":14,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.031,\"result\":\"In 1967, British spy Austin Powers attempts to assassinate his nemesis, Dr. Evil... (3370 chars)\"}}\n\nid: 42\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":42,\"t_ms\":25.231,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":15,\"tool\":\"embed\",\"deps\":[14],\"call\":\"15. embed($14)\"}}\n\nid: 43\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":43,\"t_ms\":25.276,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":15,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":0.007}}\n\nid: 44\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":44,\"t_ms\":25.627,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":16,\"tool\":\"cooccurrence\",\"deps\":[1,4,7,10,13],\"call\":\"16. cooccurrence([$1, $4, $7, $10], $13)\"}}\n\nid: 45\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":45,\"t_ms\":25.686,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":16,\"tool\":\"cooccurrence\",\"attempt\":1,\"waited_ms\":0.007}}\n\nid: 46\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":46,\"t_ms\":26.014,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":16,\"tool\":\"cooccurrence\",\"attempts\":1,\"busy_ms\":0.071,\"result\":0.277657}}\n\nid: 47\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":47,\"t_ms\":26.101,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":17,\"tool\":\"genre_jaccard\",\"deps\":[1,4,7,10,13],\"call\":\"17. genre_jaccard([$1, $4, $7, $10], $13)\"}}\n\nid: 48\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":48,\"t_ms\":26.149,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":17,\"tool\":\"genre_jaccard\",\"attempt\":1,\"waited_ms\":0.006}}\n\nid: 49\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":49,\"t_ms\":26.356,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":17,\"tool\":\"genre_jaccard\",\"attempts\":1,\"busy_ms\":0.073,\"result\":0.225}}\n\nid: 50\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":50,\"t_ms\":26.479,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":18,\"tool\":\"plot_similarity\",\"deps\":[3,6,9,12,15],\"call\":\"18. plot_similarity([$3, $6, $9, $12], $15)\"}}\n\nid: 51\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":51,\"t_ms\":26.807,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":19,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"19. resolve_title(\\\"Alesha Popovich and Tugarin the Dragon\\\")\"}}\n\nid: 52\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":52,\"t_ms\":26.852,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":19,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":0.007}}\n\nid: 53\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":53,\"t_ms\":27.159,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":19,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.167,\"result\":{\"id\":165959,\"title\":\"Alesha Popovich and Tugarin the Dragon\",\"year\":2004,\"match\":1.0}}}\n\nid: 54\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":54,\"t_ms\":27.284,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":20,\"tool\":\"plot\",\"deps\":[19],\"call\":\"20. plot($19)\"}}\n\nid: 55\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":55,\"t_ms\":27.344,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":20,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.009}}\n\nid: 56\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":56,\"t_ms\":35.047,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":20,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.1,\"result\":\"\"}}\n\nid: 57\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":57,\"t_ms\":35.315,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":21,\"tool\":\"embed\",\"deps\":[20],\"call\":\"21. embed($20)\"}}\n\nid: 58\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":58,\"t_ms\":35.393,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":21,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":0.013}}\n\nid: 59\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":59,\"t_ms\":35.955,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":22,\"tool\":\"cooccurrence\",\"deps\":[1,4,7,10,19],\"call\":\"22. cooccurrence([$1, $4, $7, $10], $19)\"}}\n\nid: 60\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":60,\"t_ms\":36.345,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":23,\"tool\":\"genre_jaccard\",\"deps\":[1,4,7,10,19],\"call\":\"23. genre_jaccard([$1, $4, $7, $10], $19)\"}}\n\nid: 61\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":61,\"t_ms\":37.006,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":24,\"tool\":\"plot_similarity\",\"deps\":[3,6,9,12,21],\"call\":\"24. plot_similarity([$3, $6, $9, $12], $21)\"}}\n\nid: 62\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":62,\"t_ms\":37.398,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":25,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"25. resolve_title(\\\"In Cold Blood\\\")\"}}\n\nid: 63\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":63,\"t_ms\":37.949,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":26,\"tool\":\"plot\",\"deps\":[25],\"call\":\"26. plot($25)\"}}\n\nid: 64\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":64,\"t_ms\":38.424,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":27,\"tool\":\"embed\",\"deps\":[26],\"call\":\"27. embed($26)\"}}\n\nid: 65\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":65,\"t_ms\":38.998,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":28,\"tool\":\"cooccurrence\",\"deps\":[1,4,7,10,25],\"call\":\"28. cooccurrence([$1, $4, $7, $10], $25)\"}}\n\nid: 66\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":66,\"t_ms\":39.279,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":29,\"tool\":\"genre_jaccard\",\"deps\":[1,4,7,10,25],\"call\":\"29. genre_jaccard([$1, $4, $7, $10], $25)\"}}\n\nid: 67\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":67,\"t_ms\":39.456,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":30,\"tool\":\"plot_similarity\",\"deps\":[3,6,9,12,27],\"call\":\"30. plot_similarity([$3, $6, $9, $12], $27)\"}}\n\nid: 68\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":68,\"t_ms\":39.827,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":31,\"tool\":\"resolve_title\",\"deps\":[],\"call\":\"31. resolve_title(\\\"Rosetta\\\")\"}}\n\nid: 69\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":69,\"t_ms\":40.023,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":32,\"tool\":\"plot\",\"deps\":[31],\"call\":\"32. plot($31)\"}}\n\nid: 70\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":70,\"t_ms\":40.231,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":33,\"tool\":\"embed\",\"deps\":[32],\"call\":\"33. embed($32)\"}}\n\nid: 71\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":71,\"t_ms\":40.401,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":34,\"tool\":\"cooccurrence\",\"deps\":[1,4,7,10,31],\"call\":\"34. cooccurrence([$1, $4, $7, $10], $31)\"}}\n\nid: 72\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":72,\"t_ms\":40.632,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":35,\"tool\":\"genre_jaccard\",\"deps\":[1,4,7,10,31],\"call\":\"35. genre_jaccard([$1, $4, $7, $10], $31)\"}}\n\nid: 73\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":73,\"t_ms\":40.866,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":36,\"tool\":\"plot_similarity\",\"deps\":[3,6,9,12,33],\"call\":\"36. plot_similarity([$3, $6, $9, $12], $33)\"}}\n\nid: 74\nevent: task_received\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":74,\"t_ms\":41.177,\"type\":\"task_received\",\"round\":1,\"data\":{\"idx\":37,\"tool\":\"rank\",\"deps\":[13,16,17,18,19,22,23,24,25,28,29,30,31,34,35,36],\"call\":\"37. rank([$13, $19, $25, $31], cooccurrence=[$16, $22, $28, $34], plot_similarity=[$18, $24, $30, $36], genre_jaccard=[$17, $23, $29, $35])\"}}\n\nid: 75\nevent: plan_join\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":75,\"t_ms\":41.327,\"type\":\"plan_join\",\"round\":1,\"data\":{\"idx\":38}}\n\nid: 76\nevent: plan_complete\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":76,\"t_ms\":41.372,\"type\":\"plan_complete\",\"round\":1,\"data\":{\"tasks\":37,\"issues\":0,\"join_seen\":true}}\n\nid: 77\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":77,\"t_ms\":48.769,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":21,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":12.975,\"result\":{\"dim\":384,\"empty\":true}}}\n\nid: 78\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":78,\"t_ms\":48.884,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":22,\"tool\":\"cooccurrence\",\"attempt\":1,\"waited_ms\":12.859}}\n\nid: 79\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":79,\"t_ms\":49.147,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":22,\"tool\":\"cooccurrence\",\"attempts\":1,\"busy_ms\":0.189,\"result\":0.054578}}\n\nid: 80\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":80,\"t_ms\":49.262,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":23,\"tool\":\"genre_jaccard\",\"attempt\":1,\"waited_ms\":12.524}}\n\nid: 81\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":81,\"t_ms\":49.962,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":23,\"tool\":\"genre_jaccard\",\"attempts\":1,\"busy_ms\":0.08,\"result\":0.0625}}\n\nid: 82\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":82,\"t_ms\":50.027,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":25,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":12.278}}\n\nid: 83\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":83,\"t_ms\":50.223,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":25,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.075,\"result\":{\"id\":6852,\"title\":\"In Cold Blood\",\"year\":1967,\"match\":1.0}}}\n\nid: 84\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":84,\"t_ms\":50.423,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":31,\"tool\":\"resolve_title\",\"attempt\":1,\"waited_ms\":10.542}}\n\nid: 85\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":85,\"t_ms\":50.996,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":31,\"tool\":\"resolve_title\",\"attempts\":1,\"busy_ms\":0.074,\"result\":{\"id\":3010,\"title\":\"Rosetta\",\"year\":1999,\"match\":1.0}}}\n\nid: 86\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":86,\"t_ms\":51.121,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":26,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.802}}\n\nid: 87\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":87,\"t_ms\":51.34,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":26,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.038,\"result\":\"November 1959. Perry Smith ([[Robert Blake  and \\\"Dick\\\" Hickock ([[Scott Wilson  ... (1780 chars)\"}}\n\nid: 88\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":88,\"t_ms\":51.387,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":28,\"tool\":\"cooccurrence\",\"attempt\":1,\"waited_ms\":1.019}}\n\nid: 89\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":89,\"t_ms\":51.67,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":28,\"tool\":\"cooccurrence\",\"attempts\":1,\"busy_ms\":0.056,\"result\":0.040462}}\n\nid: 90\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":90,\"t_ms\":51.711,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":29,\"tool\":\"genre_jaccard\",\"attempt\":1,\"waited_ms\":1.315}}\n\nid: 91\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":91,\"t_ms\":51.875,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":29,\"tool\":\"genre_jaccard\",\"attempts\":1,\"busy_ms\":0.046,\"result\":0.145833}}\n\nid: 92\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":92,\"t_ms\":51.91,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":32,\"tool\":\"plot\",\"attempt\":1,\"waited_ms\":0.864}}\n\nid: 93\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":93,\"t_ms\":52.135,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":32,\"tool\":\"plot\",\"attempts\":1,\"busy_ms\":0.027,\"result\":\"\"}}\n\nid: 94\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":94,\"t_ms\":52.185,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":34,\"tool\":\"cooccurrence\",\"attempt\":1,\"waited_ms\":1.11}}\n\nid: 95\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":95,\"t_ms\":52.341,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":34,\"tool\":\"cooccurrence\",\"attempts\":1,\"busy_ms\":0.045,\"result\":0.054578}}\n\nid: 96\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":96,\"t_ms\":52.375,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":35,\"tool\":\"genre_jaccard\",\"attempt\":1,\"waited_ms\":1.28}}\n\nid: 97\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":97,\"t_ms\":52.612,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":35,\"tool\":\"genre_jaccard\",\"attempts\":1,\"busy_ms\":0.043,\"result\":0.125}}\n\nid: 98\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":98,\"t_ms\":52.651,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":27,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":1.272}}\n\nid: 99\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":99,\"t_ms\":129.78,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":3,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":119.45,\"result\":{\"dim\":384,\"empty\":false}}}\n\nid: 100\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":100,\"t_ms\":129.939,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":33,\"tool\":\"embed\",\"attempt\":1,\"waited_ms\":77.753}}\n\nid: 101\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":101,\"t_ms\":130.737,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":33,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":0.698,\"result\":{\"dim\":384,\"empty\":true}}}\n\nid: 102\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":102,\"t_ms\":142.454,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":9,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":124.711,\"result\":{\"dim\":384,\"empty\":false}}}\n\nid: 103\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":103,\"t_ms\":149.516,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":15,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":124.007,\"result\":{\"dim\":384,\"empty\":false}}}\n\nid: 104\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":104,\"t_ms\":154.466,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":6,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":141.017,\"result\":{\"dim\":384,\"empty\":false}}}\n\nid: 105\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":105,\"t_ms\":163.451,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":12,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":142.2,\"result\":{\"dim\":384,\"empty\":false}}}\n\nid: 106\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":106,\"t_ms\":163.689,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":18,\"tool\":\"plot_similarity\",\"attempt\":1,\"waited_ms\":0.136}}\n\nid: 107\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":107,\"t_ms\":163.741,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":24,\"tool\":\"plot_similarity\",\"attempt\":1,\"waited_ms\":0.141}}\n\nid: 108\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":108,\"t_ms\":163.788,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":36,\"tool\":\"plot_similarity\",\"attempt\":1,\"waited_ms\":0.124}}\n\nid: 109\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":109,\"t_ms\":164.056,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":18,\"tool\":\"plot_similarity\",\"attempts\":1,\"busy_ms\":0.188,\"result\":0.286559}}\n\nid: 110\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":110,\"t_ms\":164.166,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":24,\"tool\":\"plot_similarity\",\"attempts\":1,\"busy_ms\":0.052,\"result\":null}}\n\nid: 111\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":111,\"t_ms\":164.235,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":36,\"tool\":\"plot_similarity\",\"attempts\":1,\"busy_ms\":0.031,\"result\":null}}\n\nid: 112\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":112,\"t_ms\":164.998,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":27,\"tool\":\"embed\",\"attempts\":1,\"busy_ms\":112.224,\"result\":{\"dim\":384,\"empty\":false}}}\n\nid: 113\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":113,\"t_ms\":165.09,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":30,\"tool\":\"plot_similarity\",\"attempt\":1,\"waited_ms\":0.011}}\n\nid: 114\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":114,\"t_ms\":165.271,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":30,\"tool\":\"plot_similarity\",\"attempts\":1,\"busy_ms\":0.13,\"result\":0.240774}}\n\nid: 115\nevent: task_started\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":115,\"t_ms\":165.495,\"type\":\"task_started\",\"round\":1,\"data\":{\"idx\":37,\"tool\":\"rank\",\"attempt\":1,\"waited_ms\":0.011}}\n\nid: 116\nevent: task_succeeded\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":116,\"t_ms\":166.083,\"type\":\"task_succeeded\",\"round\":1,\"data\":{\"idx\":37,\"tool\":\"rank\",\"attempts\":1,\"busy_ms\":0.225,\"result\":{\"best\":\"Austin Powers: International Man of Mystery\",\"scores\":{\"Austin Powers: International Man of Mystery\":2.4393,\"Alesha Popovich and Tugarin the Dragon\":-1.6431,\"In Cold Blood\":-1.7202,\"Rosetta\":-1.5009},\"signals\":[\"cooccurrence\",\"plot_similarity\",\"genre_jaccard\"]}}}\n\nid: 117\nevent: join_decision\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":117,\"t_ms\":166.248,\"type\":\"join_decision\",\"round\":1,\"data\":{\"action\":\"finish\",\"answer\":\"Austin Powers: International Man of Mystery\",\"reason\":\"$37 produced the answer\"}}\n\nid: 118\nevent: run_finished\ndata: {\"run_id\":\"3eea21e7d6f7\",\"seq\":118,\"t_ms\":166.334,\"type\":\"run_finished\",\"round\":null,\"data\":{\"answer\":\"Austin Powers: International Man of Mystery\",\"rounds\":1,\"tasks_executed\":37,\"tasks_reused\":0,\"model_calls\":{\"llmcompiler\":2,\"react_equivalent\":38},\"makespan_ms\":166.264}}\n\n",
+  "wall_seconds": 1.2,
+  "smoke": false
+}

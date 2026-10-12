@@ -1,0 +1,89 @@
+{
+  "machine": {
+    "cpu": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+    "logical_cores": 6,
+    "ram_gb": 11.9,
+    "os": "Windows 10 (10.0.19045)",
+    "python": "3.12.14",
+    "packages": {
+      "tool-dag-runtime": "0.1.0",
+      "aiohttp": "3.14.4",
+      "numpy": "2.5.4",
+      "onnxruntime": "1.31.0",
+      "pydantic": "2.14.0",
+      "typer": "0.27.3"
+    },
+    "accelerator": "none (CPU only)"
+  },
+  "date": "2026-10-13",
+  "timestamp": "2026-10-13T03:43:51+05:00",
+  "git_sha": "b00410c8e1874f44d2c685225716f83113e7fb7b",
+  "command": "tooldag bench",
+  "benchmark": "overhead",
+  "tools": "no-op functions run inline on the event loop",
+  "max_concurrency": 6,
+  "executors": [
+    {
+      "shape": "2000 independent tasks",
+      "executor": "dag",
+      "tasks": 2000,
+      "us_per_task_median": 70.64,
+      "us_per_task_min": 65.66,
+      "events_per_task": 3.0,
+      "repeats": 15
+    },
+    {
+      "shape": "2000 independent tasks",
+      "executor": "sequential",
+      "tasks": 2000,
+      "us_per_task_median": 77.78,
+      "us_per_task_min": 74.35,
+      "events_per_task": 3.0,
+      "repeats": 15
+    },
+    {
+      "shape": "chain of 2000 tasks",
+      "executor": "dag",
+      "tasks": 2000,
+      "us_per_task_median": 89.54,
+      "us_per_task_min": 86.93,
+      "events_per_task": 3.0,
+      "repeats": 15
+    },
+    {
+      "shape": "chain of 2000 tasks",
+      "executor": "sequential",
+      "tasks": 2000,
+      "us_per_task_median": 128.73,
+      "us_per_task_min": 96.08,
+      "events_per_task": 3.0,
+      "repeats": 15
+    },
+    {
+      "shape": "template plan shape (34 tasks)",
+      "executor": "dag",
+      "tasks": 34,
+      "us_per_task_median": 103.81,
+      "us_per_task_min": 90.59,
+      "events_per_task": 3.0,
+      "repeats": 15
+    },
+    {
+      "shape": "template plan shape (34 tasks)",
+      "executor": "sequential",
+      "tasks": 34,
+      "us_per_task_median": 103.29,
+      "us_per_task_min": 99.72,
+      "events_per_task": 3.0,
+      "repeats": 15
+    }
+  ],
+  "parser": {
+    "lines": 34,
+    "chunk_chars": 7,
+    "us_per_line_median": 12.5,
+    "repeats": 500
+  },
+  "wall_seconds": 12.7,
+  "smoke": false
+}

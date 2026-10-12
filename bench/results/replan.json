@@ -1,0 +1,175 @@
+{
+  "machine": {
+    "cpu": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+    "logical_cores": 6,
+    "ram_gb": 11.9,
+    "os": "Windows 10 (10.0.19045)",
+    "python": "3.12.14",
+    "packages": {
+      "tool-dag-runtime": "0.1.0",
+      "aiohttp": "3.14.4",
+      "numpy": "2.5.4",
+      "onnxruntime": "1.31.0",
+      "pydantic": "2.14.0",
+      "typer": "0.27.3"
+    },
+    "accelerator": "none (CPU only)"
+  },
+  "date": "2026-10-13",
+  "timestamp": "2026-10-13T03:43:51+05:00",
+  "git_sha": "b00410c8e1874f44d2c685225716f83113e7fb7b",
+  "command": "tooldag bench",
+  "benchmark": "replan",
+  "catalog": "fixture (12 invented films, hashing embedder)",
+  "planner": "template and scripted (no model run)",
+  "joiner": "rule",
+  "scenarios": [
+    {
+      "scenario": "clean template plan",
+      "defect": "-",
+      "expected_answer": "Comet Wardens",
+      "answer": "Comet Wardens",
+      "rounds": 1,
+      "tasks_executed": 34,
+      "tasks_reused": 0,
+      "retries": 0,
+      "parse_issues": 0,
+      "rejected": 0,
+      "cancelled": 0,
+      "model_calls": {
+        "llmcompiler": 2,
+        "react_equivalent": 35
+      },
+      "final_reason": "$34 produced the answer"
+    },
+    {
+      "scenario": "malformed line",
+      "defect": "round 1 has a call without its closing parenthesis",
+      "expected_answer": "Comet Wardens",
+      "answer": "Comet Wardens",
+      "rounds": 2,
+      "tasks_executed": 34,
+      "tasks_reused": 32,
+      "retries": 0,
+      "parse_issues": 1,
+      "rejected": 1,
+      "cancelled": 0,
+      "model_calls": {
+        "llmcompiler": 4,
+        "react_equivalent": 35
+      },
+      "final_reason": "$34 produced the answer"
+    },
+    {
+      "scenario": "dependency cycle",
+      "defect": "two signal tasks wait on each other",
+      "expected_answer": "Comet Wardens",
+      "answer": "Comet Wardens",
+      "rounds": 2,
+      "tasks_executed": 34,
+      "tasks_reused": 31,
+      "retries": 0,
+      "parse_issues": 0,
+      "rejected": 2,
+      "cancelled": 1,
+      "model_calls": {
+        "llmcompiler": 4,
+        "react_equivalent": 35
+      },
+      "final_reason": "$34 produced the answer"
+    },
+    {
+      "scenario": "dangling reference",
+      "defect": "rank() reads $99, which is never defined",
+      "expected_answer": "Comet Wardens",
+      "answer": "Comet Wardens",
+      "rounds": 2,
+      "tasks_executed": 34,
+      "tasks_reused": 33,
+      "retries": 0,
+      "parse_issues": 0,
+      "rejected": 1,
+      "cancelled": 0,
+      "model_calls": {
+        "llmcompiler": 4,
+        "react_equivalent": 35
+      },
+      "final_reason": "$34 produced the answer"
+    },
+    {
+      "scenario": "unknown tool",
+      "defect": "one call names a tool that does not exist",
+      "expected_answer": "Comet Wardens",
+      "answer": "Comet Wardens",
+      "rounds": 2,
+      "tasks_executed": 34,
+      "tasks_reused": 32,
+      "retries": 0,
+      "parse_issues": 0,
+      "rejected": 1,
+      "cancelled": 1,
+      "model_calls": {
+        "llmcompiler": 4,
+        "react_equivalent": 35
+      },
+      "final_reason": "$34 produced the answer"
+    },
+    {
+      "scenario": "transient tool failure",
+      "defect": "embed() fails twice with a retryable error",
+      "expected_answer": "Comet Wardens",
+      "answer": "Comet Wardens",
+      "rounds": 1,
+      "tasks_executed": 34,
+      "tasks_reused": 0,
+      "retries": 2,
+      "parse_issues": 0,
+      "rejected": 0,
+      "cancelled": 0,
+      "model_calls": {
+        "llmcompiler": 2,
+        "react_equivalent": 35
+      },
+      "final_reason": "$34 produced the answer"
+    },
+    {
+      "scenario": "unknown title",
+      "defect": "the question names a film the catalogue lacks",
+      "expected_answer": "Comet Wardens",
+      "answer": "Comet Wardens",
+      "rounds": 2,
+      "tasks_executed": 35,
+      "tasks_reused": 21,
+      "retries": 0,
+      "parse_issues": 0,
+      "rejected": 0,
+      "cancelled": 15,
+      "model_calls": {
+        "llmcompiler": 4,
+        "react_equivalent": 36
+      },
+      "final_reason": "$34 produced the answer"
+    },
+    {
+      "scenario": "never recovers",
+      "defect": "every round's plan is malformed; the joiner gives up",
+      "expected_answer": null,
+      "answer": null,
+      "rounds": 3,
+      "tasks_executed": 32,
+      "tasks_reused": 64,
+      "retries": 0,
+      "parse_issues": 3,
+      "rejected": 3,
+      "cancelled": 0,
+      "model_calls": {
+        "llmcompiler": 6,
+        "react_equivalent": 33
+      },
+      "final_reason": "no answer after 3 round(s): line 14 not understood (unclosed argument list); $34 rank failed: references $13, which the plan never defined"
+    }
+  ],
+  "all_expected": true,
+  "wall_seconds": 0.1,
+  "smoke": false
+}

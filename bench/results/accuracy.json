@@ -1,0 +1,339 @@
+{
+  "machine": {
+    "cpu": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+    "logical_cores": 6,
+    "ram_gb": 11.9,
+    "os": "Windows 10 (10.0.19045)",
+    "python": "3.12.14",
+    "packages": {
+      "tool-dag-runtime": "0.1.0",
+      "aiohttp": "3.14.4",
+      "numpy": "2.5.4",
+      "onnxruntime": "1.31.0",
+      "pydantic": "2.14.0",
+      "typer": "0.27.3"
+    },
+    "accelerator": "none (CPU only)"
+  },
+  "date": "2026-10-13",
+  "timestamp": "2026-10-13T03:41:37+05:00",
+  "git_sha": "b00410c8e1874f44d2c685225716f83113e7fb7b",
+  "command": "tooldag bench",
+  "benchmark": "accuracy",
+  "split": {
+    "n_fit": 100,
+    "seed": 2026,
+    "method": "random sample of question indices"
+  },
+  "variant": {
+    "construction": "distractors redrawn among films rated within +/-20% (widened by 1.5x until 3 exist) as often as the answer, seed 7",
+    "questions_built": 500
+  },
+  "embedder": "all-MiniLM-L6-v2 int8 ONNX (intra-op threads=1) (cached)",
+  "embeddings_computed": 1305,
+  "planner": "template",
+  "joiner": "rule",
+  "max_concurrency": 6,
+  "datasets": [
+    {
+      "dataset": "BIG-bench movie_recommendation",
+      "n_fit": 100,
+      "n_held_out": 400,
+      "weights": {
+        "signals": [
+          "cooccurrence",
+          "plot_similarity",
+          "genre_jaccard"
+        ],
+        "weights": [
+          2.886748621652786,
+          -0.03686263195172394,
+          0.29099995643984766
+        ],
+        "mean": [
+          0.13779082632407877,
+          0.1961571778628616,
+          0.16660518127705626
+        ],
+        "scale": [
+          0.1708208758338404,
+          0.05831049729110759,
+          0.12791899337875956
+        ],
+        "origin": "conditional logit, 100 questions, l2=1.0"
+      },
+      "weights_without_cooccurrence": {
+        "signals": [
+          "plot_similarity",
+          "genre_jaccard"
+        ],
+        "weights": [
+          0.05171097581530371,
+          0.7412915457800247
+        ],
+        "mean": [
+          0.1961571778628616,
+          0.16660518127705626
+        ],
+        "scale": [
+          0.05831049729110759,
+          0.12791899337875956
+        ],
+        "origin": "conditional logit, 100 questions, l2=1.0"
+      },
+      "rows": [
+        {
+          "scorer": "random choice (expected)",
+          "accuracy": 0.25,
+          "ci95": [
+            0.2101,
+            0.2947
+          ],
+          "n": 400,
+          "note": "1 / number of options"
+        },
+        {
+          "scorer": "most-rated option",
+          "accuracy": 0.99,
+          "ci95": [
+            0.9746,
+            0.9961
+          ],
+          "n": 400,
+          "note": "MovieLens rating count; no signal tools"
+        },
+        {
+          "scorer": "cooccurrence only",
+          "accuracy": 0.9975,
+          "ci95": [
+            0.986,
+            0.9996
+          ],
+          "n": 400,
+          "note": "missing values scored at the fitting-split mean"
+        },
+        {
+          "scorer": "plot_similarity only",
+          "accuracy": 0.3475,
+          "ci95": [
+            0.3025,
+            0.3954
+          ],
+          "n": 400,
+          "note": "missing values scored at the fitting-split mean"
+        },
+        {
+          "scorer": "genre_jaccard only",
+          "accuracy": 0.4715,
+          "ci95": [
+            0.423,
+            0.5204
+          ],
+          "n": 400,
+          "note": "missing values scored at the fitting-split mean"
+        },
+        {
+          "scorer": "equal weights, raw signals",
+          "accuracy": 0.92,
+          "ci95": [
+            0.8892,
+            0.9428
+          ],
+          "n": 400,
+          "note": "the scorer used before any fitting"
+        },
+        {
+          "scorer": "fitted, without co-occurrence (ablation)",
+          "accuracy": 0.47,
+          "ci95": [
+            0.4216,
+            0.519
+          ],
+          "n": 400,
+          "note": "refitted on the same 100 questions"
+        },
+        {
+          "scorer": "fitted, all three signals",
+          "accuracy": 0.9975,
+          "ci95": [
+            0.986,
+            0.9996
+          ],
+          "n": 400,
+          "note": "rescored offline, ties split"
+        },
+        {
+          "scorer": "runtime answer (fitted scorer)",
+          "accuracy": 0.9975,
+          "ci95": [
+            0.986,
+            0.9996
+          ],
+          "n": 400,
+          "note": "what the rule joiner returned; argmax, first option on ties"
+        }
+      ],
+      "structure": {
+        "questions": 400,
+        "answer_not_among_candidates": 0,
+        "replanned_questions": 0,
+        "mean_tasks_executed": 37.0,
+        "mean_tasks_reused": 0.0,
+        "mean_model_calls_llmcompiler": 2.0,
+        "mean_model_calls_react_equivalent": 38.0,
+        "candidates_without_plot_vector": 328
+      }
+    },
+    {
+      "dataset": "popularity-matched variant",
+      "n_fit": 100,
+      "n_held_out": 400,
+      "weights": {
+        "signals": [
+          "cooccurrence",
+          "plot_similarity",
+          "genre_jaccard"
+        ],
+        "weights": [
+          2.026769558617468,
+          0.10764713991601203,
+          0.2016664184463689
+        ],
+        "mean": [
+          0.3589062675485325,
+          0.19372041051331046,
+          0.1984751984126984
+        ],
+        "scale": [
+          0.09719284807278251,
+          0.05541638766329172,
+          0.13345555221026012
+        ],
+        "origin": "conditional logit, 100 questions, l2=1.0"
+      },
+      "weights_without_cooccurrence": {
+        "signals": [
+          "plot_similarity",
+          "genre_jaccard"
+        ],
+        "weights": [
+          0.17073032657324405,
+          0.3483026733749002
+        ],
+        "mean": [
+          0.19372041051331046,
+          0.1984751984126984
+        ],
+        "scale": [
+          0.05541638766329172,
+          0.13345555221026012
+        ],
+        "origin": "conditional logit, 100 questions, l2=1.0"
+      },
+      "rows": [
+        {
+          "scorer": "random choice (expected)",
+          "accuracy": 0.25,
+          "ci95": [
+            0.2101,
+            0.2947
+          ],
+          "n": 400,
+          "note": "1 / number of options"
+        },
+        {
+          "scorer": "most-rated option",
+          "accuracy": 0.3962,
+          "ci95": [
+            0.3495,
+            0.445
+          ],
+          "n": 400,
+          "note": "MovieLens rating count; no signal tools"
+        },
+        {
+          "scorer": "cooccurrence only",
+          "accuracy": 0.62,
+          "ci95": [
+            0.5715,
+            0.6662
+          ],
+          "n": 400,
+          "note": "missing values scored at the fitting-split mean"
+        },
+        {
+          "scorer": "plot_similarity only",
+          "accuracy": 0.3325,
+          "ci95": [
+            0.2881,
+            0.3801
+          ],
+          "n": 400,
+          "note": "missing values scored at the fitting-split mean"
+        },
+        {
+          "scorer": "genre_jaccard only",
+          "accuracy": 0.4225,
+          "ci95": [
+            0.3751,
+            0.4714
+          ],
+          "n": 400,
+          "note": "missing values scored at the fitting-split mean"
+        },
+        {
+          "scorer": "equal weights, raw signals",
+          "accuracy": 0.495,
+          "ci95": [
+            0.4463,
+            0.5438
+          ],
+          "n": 400,
+          "note": "the scorer used before any fitting"
+        },
+        {
+          "scorer": "fitted, without co-occurrence (ablation)",
+          "accuracy": 0.41,
+          "ci95": [
+            0.3629,
+            0.4588
+          ],
+          "n": 400,
+          "note": "refitted on the same 100 questions"
+        },
+        {
+          "scorer": "fitted, all three signals",
+          "accuracy": 0.6125,
+          "ci95": [
+            0.5639,
+            0.659
+          ],
+          "n": 400,
+          "note": "rescored offline, ties split"
+        },
+        {
+          "scorer": "runtime answer (fitted scorer)",
+          "accuracy": 0.6125,
+          "ci95": [
+            0.5639,
+            0.659
+          ],
+          "n": 400,
+          "note": "what the rule joiner returned; argmax, first option on ties"
+        }
+      ],
+      "structure": {
+        "questions": 400,
+        "answer_not_among_candidates": 0,
+        "replanned_questions": 0,
+        "mean_tasks_executed": 37.0,
+        "mean_tasks_reused": 0.0,
+        "mean_model_calls_llmcompiler": 2.0,
+        "mean_model_calls_react_equivalent": 38.0,
+        "candidates_without_plot_vector": 21
+      }
+    }
+  ],
+  "wall_seconds": 39.4,
+  "smoke": false
+}
