@@ -42,10 +42,6 @@ class EventLog:
         self._closed = False
 
     @property
-    def closed(self) -> bool:
-        return self._closed
-
-    @property
     def events(self) -> list[Event]:
         return list(self._events)
 

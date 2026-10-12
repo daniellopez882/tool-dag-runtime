@@ -5,8 +5,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Literal, Protocol
 
-from tooldag.scheduler import TaskState
-
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator
 
@@ -38,9 +36,6 @@ class RoundSummary:
     joiner_called: bool = False
     plan_complete_ms: float | None = None
     first_dispatch_ms: float | None = None
-
-    def failures(self) -> list[TaskRecord]:
-        return [r for r in self.records.values() if r.state is TaskState.FAILED]
 
     def executed(self) -> list[TaskRecord]:
         return [r for r in self.records.values() if r.attempts > 0]

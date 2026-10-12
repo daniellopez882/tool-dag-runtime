@@ -202,7 +202,7 @@ uv run tooldag index          # joins MovieLens and CMU into the catalogue
 
 uv run tooldag ask "Find a movie similar to Heat, Ronin, The Matrix, Pulp Fiction" \
   -o Collateral -o "Notting Hill" -o Babe -o Fargo
-uv run tooldag ask "..." -o ... --mode sequential --concurrency 1 --json
+uv run tooldag ask "Find a movie similar to Heat, Ronin" -o Collateral -o Babe   --mode sequential --json   # ReAct-order baseline, raw events as JSON lines
 
 # the HTTP service
 uv run tooldag serve --port 8080

@@ -133,8 +133,8 @@ def test_signature_ignores_numbering_but_tracks_content() -> None:
     )
 
 
-def test_depth_counts_longest_chain() -> None:
+def test_topological_order_takes_the_lowest_ready_number_first() -> None:
     graph = PlanGraph()
-    for call in (make(1), make(2, 1), make(3, 1), make(4, 2, 3), make(5)):
+    for call in (make(4, 2, 3), make(5), make(2, 1), make(3, 1), make(1)):
         graph.add(call)
-    assert graph.depth() == 3
+    assert graph.topological_order() == [1, 2, 3, 4, 5]

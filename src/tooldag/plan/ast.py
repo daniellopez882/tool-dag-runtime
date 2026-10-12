@@ -82,18 +82,6 @@ class Plan:
 
     items: list[PlanItem] = field(default_factory=list)
 
-    @property
-    def calls(self) -> list[Call]:
-        return [item for item in self.items if isinstance(item, Call)]
-
-    @property
-    def issues(self) -> list[ParseIssue]:
-        return [item for item in self.items if isinstance(item, ParseIssue)]
-
-    @property
-    def complete(self) -> bool:
-        return any(isinstance(item, JoinMarker) for item in self.items)
-
 
 def _collect_refs(arg: Arg, found: set[int]) -> None:
     match arg:

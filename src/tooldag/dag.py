@@ -146,14 +146,6 @@ class PlanGraph:
                         heapq.heappush(ready, child)
         return order
 
-    def depth(self) -> int:
-        """Number of tasks on the longest dependency chain (the critical path in task count)."""
-        level: dict[int, int] = {}
-        for node in self.topological_order():
-            deps = [level[d] for d in self.calls[node].deps if d in level]
-            level[node] = 1 + max(deps, default=0)
-        return max(level.values(), default=0)
-
 
 def _fmt_cycle(cycle: tuple[int, ...]) -> str:
     return " -> ".join(f"${i}" for i in (*cycle, cycle[0]))
