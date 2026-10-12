@@ -22,8 +22,8 @@ capture the same speedup for a sequential executor.
 ## Decision
 
 - Tools marked `blocking=True` (only `embed`) run on a `ThreadPoolExecutor` sized to the
-  scheduler's concurrency limit. Pure-Python tools run inline on the event loop; their
-  cost is tens of microseconds and a thread hop would cost more.
+  scheduler's concurrency limit. Pure-Python tools run inline on the event loop; each
+  call is well under a millisecond and a thread hop would cost about as much.
 - The pool's threads are all started before the first dispatch (`tools.base.tool_pool`).
   `ThreadPoolExecutor` otherwise creates each thread inside `submit()`, and
   `Thread.start()` blocks until the OS schedules the new thread; called from a tool
