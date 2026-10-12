@@ -1,0 +1,68 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.5"
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Install locked dependencies
+        run: uv sync --locked
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format
+        run: uv run ruff format --check .
+
+      - name: Tests (default suite, no downloads)
+        run: uv run pytest
+
+  image:
+    runs-on: ubuntu-latest
+    needs: checks
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: docker build -t tool-dag-runtime:ci .
+
+      - name: Runs as uid 10001
+        run: test "$(docker run --rm --entrypoint id tool-dag-runtime:ci -u)" = "10001"
+
+      - name: Offline demo (fixture catalogue and fault scenarios)
+        run: docker run --rm tool-dag-runtime:ci demo
+
+      - name: Serve, become healthy and stream one run over SSE
+        run: |
+          docker run -d --name svc -p 8080:8080 tool-dag-runtime:ci
+          for _ in $(seq 1 30); do
+            [ "$(docker inspect --format '{{.State.Health.Status}}' svc)" = healthy ] && break
+            sleep 2
+          done
+          docker inspect --format '{{.State.Health.Status}}' svc | grep -qx healthy
+          curl -fsS http://127.0.0.1:8080/healthz
+          curl -fsSN -X POST http://127.0.0.1:8080/v1/ask \
+            -H 'Content-Type: application/json' \
+            -d '{"question": "Find a movie similar to Orbit of Ash, Starfall Protocol", "options": ["Comet Wardens", "The Wedding Season", "Tidewater"]}' \
+            | tee events.txt
+          grep -q '^event: run_finished' events.txt
+          grep -q '"answer":"Comet Wardens"' events.txt
+
+      - name: Service logs
+        if: always()
+        run: docker logs svc || true

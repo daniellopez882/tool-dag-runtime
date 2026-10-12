@@ -1,10 +1,14 @@
+# Only pyproject.toml, uv.lock, README.md, LICENSE and src/ are needed in the image.
 .git
 .github
 .venv
 **/__pycache__
+**/*.py[cod]
 .pytest_cache
 .ruff_cache
 .hypothesis
+.gitattributes
+.gitignore
 bench
 docs
 tests
@@ -12,4 +16,7 @@ data
 *.onnx
 *.tar.gz
 *.zip
-README.md
+*.npz
+.env
+Dockerfile
+.dockerignore
