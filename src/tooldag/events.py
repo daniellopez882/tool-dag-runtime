@@ -79,21 +79,33 @@ class EventLog:
                 waiter.set_result(None)
         self._waiters.clear()
 
-    async def follow(self, after_seq: int = 0) -> AsyncIterator[Event]:
-        """Yield events with ``seq > after_seq``, then live ones until the log closes."""
+    async def follow(
+        self, after_seq: int = 0, heartbeat_s: float | None = None
+    ) -> AsyncIterator[Event | None]:
+        """Yield events with ``seq > after_seq``, then live ones until the log closes.
+
+        With ``heartbeat_s`` set, ``None`` is yielded after that long without an event so
+        a streaming writer can send a keep-alive; without it, only events are yielded.
+        """
         position = max(after_seq, 0)
+        loop = asyncio.get_running_loop()
         while True:
             while position < len(self._events):
                 yield self._events[position]
                 position += 1
             if self._closed:
                 return
-            waiter: asyncio.Future[None] = asyncio.get_running_loop().create_future()
+            waiter: asyncio.Future[None] = loop.create_future()
             self._waiters.add(waiter)
             try:
-                await waiter
+                # asyncio.wait leaves the waiter alone on timeout (wait_for would cancel it).
+                done, _ = await asyncio.wait({waiter}, timeout=heartbeat_s)
             finally:
                 self._waiters.discard(waiter)
+                if not waiter.done():
+                    waiter.cancel()
+            if not done:
+                yield None
 
 
 def preview(value: Any, depth: int = 0) -> Any:

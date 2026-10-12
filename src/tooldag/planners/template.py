@@ -146,9 +146,13 @@ class TemplatePlanner:
 
     async def stream_plan(self, ctx: PlanContext) -> AsyncIterator[str]:
         text = render_plan(self.build(ctx))
-        for line in text.splitlines(keepends=True):
+        loop = asyncio.get_running_loop()
+        start = loop.time()
+        for n, line in enumerate(text.splitlines(keepends=True), start=1):
             if self.line_delay_s > 0:
-                await asyncio.sleep(self.line_delay_s)
+                # Line n is due at start + n * delay; sleeping to a deadline keeps late
+                # wake-ups (timer granularity, a busy machine) from adding up.
+                await asyncio.sleep(max(0.0, start + n * self.line_delay_s - loop.time()))
             else:
                 # Hand control back each line, as a network stream would.
                 await asyncio.sleep(0)
