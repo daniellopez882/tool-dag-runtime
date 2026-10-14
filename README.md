@@ -1,5 +1,7 @@
 # tool-dag-runtime
 
+[![ci](https://github.com/daniellopez882/tool-dag-runtime/actions/workflows/ci.yml/badge.svg)](https://github.com/daniellopez882/tool-dag-runtime/actions/workflows/ci.yml) ![python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white) ![licence](https://img.shields.io/badge/licence-MIT-green)
+
 An asyncio runtime for the LLMCompiler pattern. A planner writes a numbered plan of
 tool calls; an incremental parser hands each call to a task fetching unit the moment
 its line is complete, and the unit starts it as soon as the results it reads exist,
